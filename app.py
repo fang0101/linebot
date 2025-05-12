@@ -10,7 +10,7 @@ app = Flask(__name__)
 
 # === LINE CHANNEL SETTING ===
 CHANNEL_ACCESS_TOKEN = 'kIUePmws0G9aM3bZrnm7i5l17oCWaF2u+ECyhR0/vP8SAayHH4+fIrNA43mSOghNO3NTeT6/0Uoto4+7ItvhejRzls4SN8pxkbRKYIqvnKB91s5nhbIrj5hLluY2o+ASKnvFkONoso3I45y3emUslgdB04t89/1O/w1cDnyilFU='
-CHANNEL_SECRET = '000c185ac93b503d5980a9709e760422'     
+CHANNEL_SECRET = '000c185ac93b503d5980a9709e760422'
 
 configuration = Configuration(access_token=CHANNEL_ACCESS_TOKEN)
 handler = WebhookHandler(CHANNEL_SECRET)
@@ -19,8 +19,12 @@ handler = WebhookHandler(CHANNEL_SECRET)
 GEMINI_API_KEY = 'AIzaSyDG6edtmKlhnlJiKBY-slDeK-i2-HIa7Fs'
 GEMINI_URL = f"https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent?key={GEMINI_API_KEY}"
 
+# === Azure Text Analytics 設定 ===
+AZURE_KEY = '51FkWvHcWLMlag4RPBpGNq9eB8GVOcGydp0W2a7bTQeNVnJ2cIIrJQQJ99BEACYeBjFXJ3w3AAAaACOGO3AP'
+AZURE_ENDPOINT = 'https://newyork.cognitiveservices.azure.com/'
+
 # === OpenWeather 設定 ===
-WEATHER_API_KEY = '你的 OpenWeather 金鑰'
+WEATHER_API_KEY = '35e6c0357d0c54bdfb1e2083b25510cb'
 
 def get_gemini_reply(user_text):
     headers = {"Content-Type": "application/json"}
@@ -38,17 +42,39 @@ def get_gemini_reply(user_text):
         print("[Gemini Error]", e)
         return "抱歉，Gemini 回覆失敗，請稍後再試。"
 
+def analyze_sentiment_azure(text):
+    url = f"{AZURE_ENDPOINT}text/analytics/v3.1/sentiment"
+    headers = {
+        "Ocp-Apim-Subscription-Key": AZURE_KEY,
+        "Content-Type": "application/json"
+    }
+    body = {
+        "documents": [
+            {"id": "1", "language": "zh-hant", "text": text}
+        ]
+    }
+    try:
+        response = requests.post(url, headers=headers, json=body)
+        response.raise_for_status()
+        result = response.json()
+        sentiment = result['documents'][0]['sentiment']
+        return f"這段文字的情緒傾向是：{sentiment}"
+    except Exception as e:
+        print("[Azure Sentiment Error]", e)
+        return "情緒分析失敗，請稍後再試。"
+
 def get_weather(city):
     city_map = {
         "台北": "Taipei",
         "臺北": "Taipei",
         "台中": "Taichung",
         "高雄": "Kaohsiung",
-        "新竹": "Hsinchu"
+        "新竹": "Hsinchu",
+        "台南": "Tainan"
     }
     city_en = city_map.get(city.strip(), city.strip())
 
-    url = f"https://api.openweathermap.org/data/2.5/weather?q={city_en}&appid=35e6c0357d0c54bdfb1e2083b25510cb&units=metric&lang=zh_tw"
+    url = f"https://api.openweathermap.org/data/2.5/weather?q={city_en}&appid={WEATHER_API_KEY}&units=metric&lang=zh_tw"
     try:
         r = requests.get(url)
         data = r.json()
@@ -108,8 +134,7 @@ def handle_text(event):
 
     if user_text.startswith("情緒"):
         content = user_text.replace("情緒", "").strip()
-        prompt = f"請判斷這段話的情緒傾向：\n「{content}」\n回答我「正面」、「中立」或「負面」。"
-        reply_text = get_gemini_reply(prompt)
+        reply_text = analyze_sentiment_azure(content)
     elif user_text.startswith("天氣"):
         city = user_text.replace("天氣", "").strip()
         reply_text = get_weather(city)
@@ -136,7 +161,7 @@ def handle_sticker(event):
         line_bot_api.reply_message(
             ReplyMessageRequest(
                 reply_token=event.reply_token,
-                messages=[TextMessage(text="收到你的貼圖！")] 
+                messages=[TextMessage(text="收到貼圖！")] 
             )
         )
 
@@ -149,7 +174,7 @@ def handle_image(event):
         line_bot_api.reply_message(
             ReplyMessageRequest(
                 reply_token=event.reply_token,
-                messages=[TextMessage(text="收到圖片啦～📷")] 
+                messages=[TextMessage(text="收到圖片啦")] 
             )
         )
 
@@ -167,7 +192,7 @@ def handle_location(event):
         line_bot_api.reply_message(
             ReplyMessageRequest(
                 reply_token=event.reply_token,
-                messages=[TextMessage(text=f"你的位置我收到了！\n{address}")]
+                messages=[TextMessage(text=f"位置收到了！\n{address}")]
             )
         )
 

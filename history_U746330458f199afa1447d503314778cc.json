@@ -160,5 +160,89 @@
     "type": "text",
     "input": "情緒我今天真的好累",
     "output": "抱歉，Gemini 回覆失敗，請稍後再試。"
+  },
+  {
+    "type": "text",
+    "input": "情緒我今天真的很開心",
+    "output": "這段文字的情緒傾向是：positive"
+  },
+  {
+    "type": "text",
+    "input": "情緒我現在好難過",
+    "output": "這段文字的情緒傾向是：negative"
+  },
+  {
+    "type": "text",
+    "input": "天氣台北",
+    "output": "查無此城市天氣資料"
+  },
+  {
+    "type": "text",
+    "input": "天氣台北",
+    "output": "台北 的天氣是 多雲，溫度約 25.2°C"
+  },
+  {
+    "type": "text",
+    "input": "情緒我現在好難過",
+    "output": "這段文字的情緒傾向是：negative"
+  },
+  {
+    "type": "text",
+    "input": "嗨嗨",
+    "output": "抱歉，Gemini 回覆失敗，請稍後再試。"
+  },
+  {
+    "type": "image",
+    "info": "收到圖片"
+  },
+  {
+    "type": "image",
+    "info": "收到圖片"
+  },
+  {
+    "type": "text",
+    "input": "(dizzy)",
+    "output": "抱歉，Gemini 回覆失敗，請稍後再試。"
+  },
+  {
+    "type": "sticker",
+    "info": "收到貼圖"
+  },
+  {
+    "type": "image",
+    "info": "收到圖片"
+  },
+  {
+    "type": "sticker",
+    "info": "收到貼圖"
+  },
+  {
+    "type": "image",
+    "info": "收到圖片"
+  },
+  {
+    "type": "text",
+    "input": "天氣台南",
+    "output": "查無此城市天氣資料"
+  },
+  {
+    "type": "text",
+    "input": "天氣高雄",
+    "output": "高雄 的天氣是 小雨，溫度約 25.97°C"
+  },
+  {
+    "type": "text",
+    "input": "情緒我現在好想下班",
+    "output": "這段文字的情緒傾向是：neutral"
+  },
+  {
+    "type": "text",
+    "input": "台南天氣",
+    "output": "抱歉，Gemini 回覆失敗，請稍後再試。"
+  },
+  {
+    "type": "text",
+    "input": "天氣台南",
+    "output": "台南 的天氣是 小雨，溫度約 24.95°C"
   }
 ]
