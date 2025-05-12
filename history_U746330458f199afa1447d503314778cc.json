@@ -1,0 +1,164 @@
+[
+  {
+    "type": "text",
+    "input": "嗨",
+    "output": "抱歉，我無法理解你的訊息。"
+  },
+  {
+    "type": "image",
+    "info": "收到圖片"
+  },
+  {
+    "type": "text",
+    "input": "嗨嗨嗨嗨嗨",
+    "output": "抱歉，我無法理解你的訊息。"
+  },
+  {
+    "type": "image",
+    "info": "收到圖片"
+  },
+  {
+    "type": "location",
+    "info": "你傳的地點 @ 106台灣台北市大安區信義路四段74巷4弄8-1號 (25.032520151342652,121.54669498321469)"
+  },
+  {
+    "type": "text",
+    "input": "台北天氣",
+    "output": "抱歉，我無法理解你的訊息。"
+  },
+  {
+    "type": "text",
+    "input": "天氣台北",
+    "output": "查無此城市天氣資料"
+  },
+  {
+    "type": "text",
+    "input": "情緒我今天很難過",
+    "output": "情緒分析失敗，請稍後再試。"
+  },
+  {
+    "type": "text",
+    "input": "天氣taipei\n",
+    "output": "查無此城市天氣資料"
+  },
+  {
+    "type": "text",
+    "input": "天氣臺北",
+    "output": "查無此城市天氣資料"
+  },
+  {
+    "type": "text",
+    "input": "天氣Taipei",
+    "output": "查無此城市天氣資料"
+  },
+  {
+    "type": "text",
+    "input": "天氣Taipei",
+    "output": "查無此城市天氣資料"
+  },
+  {
+    "type": "text",
+    "input": "天氣Taipei",
+    "output": "查無此城市天氣資料"
+  },
+  {
+    "type": "text",
+    "input": "天氣台北",
+    "output": "查無此城市天氣資料"
+  },
+  {
+    "type": "text",
+    "input": "天氣Taipei",
+    "output": "查無此城市天氣資料"
+  },
+  {
+    "type": "text",
+    "input": "天氣台北",
+    "output": "查無此城市天氣資料"
+  },
+  {
+    "type": "text",
+    "input": "天氣台北",
+    "output": "查無此城市天氣資料"
+  },
+  {
+    "type": "text",
+    "input": "情緒我今天真的好累",
+    "output": "情緒分析失敗，請稍後再試。"
+  },
+  {
+    "type": "text",
+    "input": "情緒我覺得你很棒！",
+    "output": "情緒分析失敗，請稍後再試。"
+  },
+  {
+    "type": "text",
+    "input": "情緒我今天真的好累",
+    "output": "情緒分析失敗，請稍後再試。"
+  },
+  {
+    "type": "text",
+    "input": "我覺得你很棒！",
+    "output": "抱歉，我無法理解你的訊息。"
+  },
+  {
+    "type": "text",
+    "input": "情緒我今天真的好累",
+    "output": "情緒分析失敗，請稍後再試。"
+  },
+  {
+    "type": "text",
+    "input": "情緒我今天真的好累",
+    "output": "情緒分析失敗，請稍後再試。"
+  },
+  {
+    "type": "text",
+    "input": "情緒我今天真的好累",
+    "output": "情緒分析失敗，請稍後再試。"
+  },
+  {
+    "type": "text",
+    "input": "你好嗎?",
+    "output": "抱歉，Gemini 回覆失敗，請稍後再試。"
+  },
+  {
+    "type": "text",
+    "input": "情緒我今天真的好累",
+    "output": "抱歉，Gemini 回覆失敗，請稍後再試。"
+  },
+  {
+    "type": "text",
+    "input": "情緒我今天真的好累",
+    "output": "抱歉，Gemini 回覆失敗，請稍後再試。"
+  },
+  {
+    "type": "text",
+    "input": "你覺得我會成功嗎？",
+    "output": "抱歉，Gemini 回覆失敗，請稍後再試。"
+  },
+  {
+    "type": "text",
+    "input": "你覺得我會成功嗎？",
+    "output": "抱歉，Gemini 回覆失敗，請稍後再試。"
+  },
+  {
+    "type": "text",
+    "input": "情緒我今天真的好累",
+    "output": "抱歉，Gemini 回覆失敗，請稍後再試。"
+  },
+  {
+    "type": "text",
+    "input": "天氣台北",
+    "output": "台北 的天氣是 多雲，溫度約 26.16°C"
+  },
+  {
+    "type": "text",
+    "input": "天氣台中",
+    "output": "台中 的天氣是 小雨，溫度約 26.88°C"
+  },
+  {
+    "type": "text",
+    "input": "情緒我今天真的好累",
+    "output": "抱歉，Gemini 回覆失敗，請稍後再試。"
+  }
+]
