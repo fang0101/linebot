@@ -59,9 +59,11 @@ def analyze_sentiment_azure(text):
         result = response.json()
         sentiment = result['documents'][0]['sentiment']
         if sentiment == "positive":
-            return "天啊你是正面之人"
+            return "你的情緒:正面。" \
+            "天啊你是正面之人"
         elif sentiment == "negative":
-            return "拍拍別哭"
+            return "你的情緒:反面。" \
+            "拍拍別哭"
         else:
             return "chill guy"
     except Exception as e:
