@@ -40,7 +40,7 @@ def get_gemini_reply(user_text):
         return data['candidates'][0]['content']['parts'][0]['text']
     except Exception as e:
         print("[Gemini Error]", e)
-        return "抱歉，Gemini 回覆失敗，請稍後再試。"
+        return "sorry 我不知道 查google"
 
 def analyze_sentiment_azure(text):
     url = f"{AZURE_ENDPOINT}text/analytics/v3.1/sentiment"
@@ -58,10 +58,15 @@ def analyze_sentiment_azure(text):
         response.raise_for_status()
         result = response.json()
         sentiment = result['documents'][0]['sentiment']
-        return f"這段文字的情緒傾向是：{sentiment}"
+        if sentiment == "positive":
+            return "天啊你是正面之人"
+        elif sentiment == "negative":
+            return "拍拍別哭"
+        else:
+            return "chill guy"
     except Exception as e:
         print("[Azure Sentiment Error]", e)
-        return "情緒分析失敗，請稍後再試。"
+        return "不要玩我😒😒"
 
 def get_weather(city):
     city_map = {
@@ -84,10 +89,10 @@ def get_weather(city):
             return f"{city} 的天氣是 {desc}，溫度約 {temp}°C"
         else:
             print("[Weather API error]:", data)
-            return "查無此城市天氣資料"
+            return "只有提供台北、台中、高雄、新竹、台南"
     except Exception as e:
         print("[Weather Exception]:", e)
-        return "天氣查詢失敗，請稍後再試。"
+        return "只有提供台北、台中、高雄、新竹、台南"
 
 def save_history(user_id, message):
     filename = f"history_{user_id}.json"
