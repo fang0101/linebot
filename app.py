@@ -5,6 +5,7 @@ from linebot.v3.webhooks import MessageEvent, TextMessageContent, StickerMessage
 import requests
 import json
 import os
+import google.generativeai as genai
 
 app = Flask(__name__)
 
@@ -26,24 +27,6 @@ AZURE_ENDPOINT = 'https://newyork.cognitiveservices.azure.com/'
 # === OpenWeather 設定 ===
 WEATHER_API_KEY = '35e6c0357d0c54bdfb1e2083b25510cb'
 
-def get_gemini_reply(user_text):
-    headers = {"Content-Type": "application/json"}
-    body = {
-        "contents": [
-            {"parts": [{"text": user_text}]}
-        ]
-    }
-    try:
-        response = requests.post(GEMINI_URL, headers=headers, json=body)
-        response.raise_for_status()
-        data = response.json()
-        print("[Gemini raw response]:", data)
-        return data['candidates'][0]['content']['parts'][0]['text']
-    except Exception as e:
-        print("[Gemini Error]:", e)
-        return "抱歉，Gemini 發生錯誤，請稍後再試。"
-
-
 def analyze_sentiment_azure(text):
     url = f"{AZURE_ENDPOINT}text/analytics/v3.1/sentiment"
     headers = {
@@ -61,29 +44,18 @@ def analyze_sentiment_azure(text):
         result = response.json()
         sentiment = result['documents'][0]['sentiment']
         if sentiment == "positive":
-            return "你的情緒:正面。" \
-            "天啊你是正面之人"
+            return "天啊你是正面之人"
         elif sentiment == "negative":
-            return "你的情緒:反面。" \
-            "拍拍別哭"
+            return "拍拍別哭"
         else:
             return "chill guy"
     except Exception as e:
         print("[Azure Sentiment Error]", e)
-        return "不要玩我😒😒"
+        return "情緒分析失敗，請稍後再試。"
 
 def get_weather(city):
-    city_map = {
-        "台北": "Taipei",
-        "臺北": "Taipei",
-        "台中": "Taichung",
-        "高雄": "Kaohsiung",
-        "新竹": "Hsinchu",
-        "台南": "Tainan"
-    }
-    city_en = city_map.get(city.strip(), city.strip())
-
-    url = f"https://api.openweathermap.org/data/2.5/weather?q={city_en}&appid={WEATHER_API_KEY}&units=metric&lang=zh_tw"
+    city = city.strip()  # 保留使用者輸入，不做限制
+    url = f"https://api.openweathermap.org/data/2.5/weather?q={city}&appid={WEATHER_API_KEY}&units=metric&lang=zh_tw"
     try:
         r = requests.get(url)
         data = r.json()
@@ -93,10 +65,19 @@ def get_weather(city):
             return f"{city} 的天氣是 {desc}，溫度約 {temp}°C"
         else:
             print("[Weather API error]:", data)
-            return "只有提供台北、台中、高雄、新竹、台南"
+            return "查無此城市天氣資料"
     except Exception as e:
         print("[Weather Exception]:", e)
-        return "只有提供台北、台中、高雄、新竹、台南"
+        return "天氣查詢失敗，請稍後再試。"
+
+
+def ask_gemini(prompt):
+    try:
+        response = model.generate_content(prompt)
+        return response.text
+    except Exception as e:
+        print("[Gemini Error]", e)
+        return "抱歉，Gemini 發生錯誤，請稍後再試。"
 
 def save_history(user_id, message):
     filename = f"history_{user_id}.json"
@@ -148,7 +129,7 @@ def handle_text(event):
         city = user_text.replace("天氣", "").strip()
         reply_text = get_weather(city)
     else:
-        reply_text = get_gemini_reply(user_text)
+        reply_text = ask_gemini(user_text)
 
     save_history(user_id, {"type": "text", "input": user_text, "output": reply_text})
 
@@ -170,7 +151,7 @@ def handle_sticker(event):
         line_bot_api.reply_message(
             ReplyMessageRequest(
                 reply_token=event.reply_token,
-                messages=[TextMessage(text="收到貼圖！")] 
+                messages=[TextMessage(text="收到貼圖！")]
             )
         )
 
@@ -183,7 +164,7 @@ def handle_image(event):
         line_bot_api.reply_message(
             ReplyMessageRequest(
                 reply_token=event.reply_token,
-                messages=[TextMessage(text="收到圖片啦")] 
+                messages=[TextMessage(text="收到圖片啦")]
             )
         )
 
@@ -206,6 +187,4 @@ def handle_location(event):
         )
 
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 5000))  # Render 會設 PORT，沒有就用 5000
-    app.run(host="0.0.0.0", port=port)        # 0.0.0.0 表示「接受所有網卡來源」
-
+    app.run(port=5000)
