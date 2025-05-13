@@ -37,10 +37,12 @@ def get_gemini_reply(user_text):
         response = requests.post(GEMINI_URL, headers=headers, json=body)
         response.raise_for_status()
         data = response.json()
+        print("[Gemini raw response]:", data)
         return data['candidates'][0]['content']['parts'][0]['text']
     except Exception as e:
-        print("[Gemini Error]", e)
-        return "sorry 我不知道 查google"
+        print("[Gemini Error]:", e)
+        return "抱歉，Gemini 發生錯誤，請稍後再試。"
+
 
 def analyze_sentiment_azure(text):
     url = f"{AZURE_ENDPOINT}text/analytics/v3.1/sentiment"
