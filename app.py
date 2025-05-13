@@ -16,7 +16,7 @@ configuration = Configuration(access_token=CHANNEL_ACCESS_TOKEN)
 handler = WebhookHandler(CHANNEL_SECRET)
 
 # === Gemini API 設定 ===
-GEMINI_API_KEY = 'AIzaSyDG6edtmKlhnlJiKBY-slDeK-i2-HIa7Fs'
+GEMINI_API_KEY = 'AIzaSyChx2x9fVh-ZTFvULaUJh5stYGa2W9FzkI'
 GEMINI_URL = f"https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent?key={GEMINI_API_KEY}"
 
 # === Azure Text Analytics 設定 ===
