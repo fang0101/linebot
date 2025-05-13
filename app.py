@@ -20,6 +20,7 @@ GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 AZURE_KEY = os.getenv("AZURE_KEY")
 AZURE_ENDPOINT = os.getenv("AZURE_ENDPOINT")
 WEATHER_API_KEY = os.getenv("WEATHER_API_KEY")
+handler = WebhookHandler(CHANNEL_SECRET)
 
 
 
