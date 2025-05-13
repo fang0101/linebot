@@ -8,6 +8,9 @@ import os
 import google.generativeai as genai
 
 app = Flask(__name__)
+genai.configure(api_key='AIzaSyChx2x9fVh-ZTFvULaUJh5stYGa2W9FzkI')
+model = genai.GenerativeModel('gemma-3-1b-it')
+
 
 # === LINE CHANNEL SETTING ===
 CHANNEL_ACCESS_TOKEN = 'kIUePmws0G9aM3bZrnm7i5l17oCWaF2u+ECyhR0/vP8SAayHH4+fIrNA43mSOghNO3NTeT6/0Uoto4+7ItvhejRzls4SN8pxkbRKYIqvnKB91s5nhbIrj5hLluY2o+ASKnvFkONoso3I45y3emUslgdB04t89/1O/w1cDnyilFU='
@@ -18,7 +21,8 @@ handler = WebhookHandler(CHANNEL_SECRET)
 
 # === Gemini API 設定 ===
 GEMINI_API_KEY = 'AIzaSyChx2x9fVh-ZTFvULaUJh5stYGa2W9FzkI'
-GEMINI_URL = f"https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent?key={GEMINI_API_KEY}"
+genai.configure(api_key=GEMINI_API_KEY)
+model = genai.GenerativeModel('gemma-3-1b-it')
 
 # === Azure Text Analytics 設定 ===
 AZURE_KEY = '51FkWvHcWLMlag4RPBpGNq9eB8GVOcGydp0W2a7bTQeNVnJ2cIIrJQQJ99BEACYeBjFXJ3w3AAAaACOGO3AP'
@@ -54,7 +58,7 @@ def analyze_sentiment_azure(text):
         return "情緒分析失敗，請稍後再試。"
 
 def get_weather(city):
-    city = city.strip()  # 保留使用者輸入，不做限制
+    city = city.strip()
     url = f"https://api.openweathermap.org/data/2.5/weather?q={city}&appid={WEATHER_API_KEY}&units=metric&lang=zh_tw"
     try:
         r = requests.get(url)
@@ -69,7 +73,6 @@ def get_weather(city):
     except Exception as e:
         print("[Weather Exception]:", e)
         return "天氣查詢失敗，請稍後再試。"
-
 
 def ask_gemini(prompt):
     try:

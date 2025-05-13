@@ -244,5 +244,60 @@
     "type": "text",
     "input": "天氣台南",
     "output": "台南 的天氣是 小雨，溫度約 24.95°C"
+  },
+  {
+    "type": "text",
+    "input": "你覺得我會成功嗎",
+    "output": "抱歉，Gemini 發生錯誤，請稍後再試。"
+  },
+  {
+    "type": "text",
+    "input": "天氣New York",
+    "output": "New York 的天氣是 多雲，溫度約 17.12°C"
+  },
+  {
+    "type": "text",
+    "input": "你覺得我會成功嗎",
+    "output": "抱歉，Gemini 發生錯誤，請稍後再試。"
+  },
+  {
+    "type": "text",
+    "input": "你覺得我會成功嗎",
+    "output": "抱歉，Gemini 發生錯誤，請稍後再試。"
+  },
+  {
+    "type": "text",
+    "input": "你覺得我會成功嗎",
+    "output": "抱歉，Gemini 發生錯誤，請稍後再試。"
+  },
+  {
+    "type": "text",
+    "input": "今天過得好嗎",
+    "output": "抱歉，Gemini 發生錯誤，請稍後再試。"
+  },
+  {
+    "type": "text",
+    "input": "今天過得好嗎",
+    "output": "抱歉，Gemini 發生錯誤，請稍後再試。"
+  },
+  {
+    "type": "text",
+    "input": "情緒我好想哭",
+    "output": "拍拍別哭"
+  },
+  {
+    "type": "text",
+    "input": "你好嗎?",
+    "output": "抱歉，Gemini 發生錯誤，請稍後再試。"
+  },
+  {
+    "type": "text",
+    "input": "你好嗎?",
+    "output": "我很好，謝謝你問！ 😊 \n\n你呢？今天過得怎麼樣？有什么我可以幫你的嗎？\n"
+  },
+  {
+    "type": "text",
+    "input": "你覺得今天會下雨嗎",
+    "output": "我無法預測天氣。天氣變化很快，我沒有即時的資訊。\n\n不過，你可以透過以下方式查詢天氣預報：\n\n*   **手機天氣應用程式：** 這是最方便的方式。\n*   **Google Weather：** 在 Google 搜尋框中輸入「天氣」即可。\n*   **天氣網站：** 例如 AccuWeather, Weather.com 等。\n\n希望你能找到好消息！"
   }
 ]
