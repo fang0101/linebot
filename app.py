@@ -7,22 +7,25 @@ import requests
 import json
 import os
 import google.generativeai as genai
+
+# 載入 .env 檔案
 load_dotenv()
 
+# === 設定變數 ===
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
-genai.configure(api_key=GEMINI_API_KEY)
-model = genai.GenerativeModel('gemma-3-1b-it')
-app = Flask(__name__)
-
 CHANNEL_ACCESS_TOKEN = os.getenv("CHANNEL_ACCESS_TOKEN")
 CHANNEL_SECRET = os.getenv("CHANNEL_SECRET")
-GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 AZURE_KEY = os.getenv("AZURE_KEY")
 AZURE_ENDPOINT = os.getenv("AZURE_ENDPOINT")
 WEATHER_API_KEY = os.getenv("WEATHER_API_KEY")
+
+# === 設定 LINE 與 Gemini ===
+genai.configure(api_key=GEMINI_API_KEY)
+model = genai.GenerativeModel('gemma-3-1b-it')
+
+configuration = Configuration(access_token=CHANNEL_ACCESS_TOKEN)
 handler = WebhookHandler(CHANNEL_SECRET)
-
-
+app = Flask(__name__)
 
 def analyze_sentiment_azure(text):
     url = f"{AZURE_ENDPOINT}text/analytics/v3.1/sentiment"
@@ -183,6 +186,5 @@ def handle_location(event):
         )
 
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 5000))  # 預設 5000，Render 會指定 PORT
+    port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
-
