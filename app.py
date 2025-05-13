@@ -7,8 +7,12 @@ import requests
 import json
 import os
 import google.generativeai as genai
-
 load_dotenv()
+
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+genai.configure(api_key=GEMINI_API_KEY)
+model = genai.GenerativeModel('gemma-3-1b-it')
+app = Flask(__name__)
 
 CHANNEL_ACCESS_TOKEN = os.getenv("CHANNEL_ACCESS_TOKEN")
 CHANNEL_SECRET = os.getenv("CHANNEL_SECRET")
@@ -17,9 +21,7 @@ AZURE_KEY = os.getenv("AZURE_KEY")
 AZURE_ENDPOINT = os.getenv("AZURE_ENDPOINT")
 WEATHER_API_KEY = os.getenv("WEATHER_API_KEY")
 
-app = Flask(__name__)
-genai.configure(api_key={GEMINI_API_KEY})
-model = genai.GenerativeModel('gemma-3-1b-it')
+
 
 def analyze_sentiment_azure(text):
     url = f"{AZURE_ENDPOINT}text/analytics/v3.1/sentiment"
