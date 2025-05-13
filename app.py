@@ -2,34 +2,24 @@ from flask import Flask, request, abort, jsonify
 from linebot.v3.messaging import Configuration, ApiClient, MessagingApi, ReplyMessageRequest, TextMessage
 from linebot.v3.webhook import WebhookHandler
 from linebot.v3.webhooks import MessageEvent, TextMessageContent, StickerMessageContent, LocationMessageContent, ImageMessageContent
+from dotenv import load_dotenv
 import requests
 import json
 import os
 import google.generativeai as genai
 
+load_dotenv()
+
+CHANNEL_ACCESS_TOKEN = os.getenv("CHANNEL_ACCESS_TOKEN")
+CHANNEL_SECRET = os.getenv("CHANNEL_SECRET")
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+AZURE_KEY = os.getenv("AZURE_KEY")
+AZURE_ENDPOINT = os.getenv("AZURE_ENDPOINT")
+WEATHER_API_KEY = os.getenv("WEATHER_API_KEY")
+
 app = Flask(__name__)
-genai.configure(api_key='AIzaSyChx2x9fVh-ZTFvULaUJh5stYGa2W9FzkI')
+genai.configure(api_key={GEMINI_API_KEY})
 model = genai.GenerativeModel('gemma-3-1b-it')
-
-
-# === LINE CHANNEL SETTING ===
-CHANNEL_ACCESS_TOKEN = 'kIUePmws0G9aM3bZrnm7i5l17oCWaF2u+ECyhR0/vP8SAayHH4+fIrNA43mSOghNO3NTeT6/0Uoto4+7ItvhejRzls4SN8pxkbRKYIqvnKB91s5nhbIrj5hLluY2o+ASKnvFkONoso3I45y3emUslgdB04t89/1O/w1cDnyilFU='
-CHANNEL_SECRET = '000c185ac93b503d5980a9709e760422'
-
-configuration = Configuration(access_token=CHANNEL_ACCESS_TOKEN)
-handler = WebhookHandler(CHANNEL_SECRET)
-
-# === Gemini API 設定 ===
-GEMINI_API_KEY = 'AIzaSyChx2x9fVh-ZTFvULaUJh5stYGa2W9FzkI'
-genai.configure(api_key=GEMINI_API_KEY)
-model = genai.GenerativeModel('gemma-3-1b-it')
-
-# === Azure Text Analytics 設定 ===
-AZURE_KEY = '51FkWvHcWLMlag4RPBpGNq9eB8GVOcGydp0W2a7bTQeNVnJ2cIIrJQQJ99BEACYeBjFXJ3w3AAAaACOGO3AP'
-AZURE_ENDPOINT = 'https://newyork.cognitiveservices.azure.com/'
-
-# === OpenWeather 設定 ===
-WEATHER_API_KEY = '35e6c0357d0c54bdfb1e2083b25510cb'
 
 def analyze_sentiment_azure(text):
     url = f"{AZURE_ENDPOINT}text/analytics/v3.1/sentiment"
